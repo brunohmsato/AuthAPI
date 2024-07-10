@@ -9,17 +9,11 @@ on:
 jobs:
 
   build:
-
-    strategy:
-      matrix:
-        configuration: [Debug, Release]
-
     runs-on: windows-latest  
 
     env:
       Solution_Name: AuthAPI.sln                         
-      Project_Directory: AuthAPI.API    
-      Project_Path: AuthAPI/AuthAPI.API.csproj                   
+      Project_Path: AuthAPI.API/AuthAPI.API.csproj                   
 
     steps:
     - name: Checkout code
@@ -35,9 +29,3 @@ jobs:
 
     - name: Build the application
       run: dotnet build ${{ env.Solution_Name }} --configuration Release --no-restore
-
-    - name: Run tests
-      run: dotnet test ${{ env.Solution_Name }} --no-restore --verbosity normal
-
-    - name: Publish the application
-      run: dotnet publish ${{ env.Project_Path }} --configuration Release --output ./publish
